@@ -8,6 +8,8 @@ public class Participant : MonoBehaviour
     public string participantName;
     public float attackForce = 10;
     public int totalKills;
+    public Vector3 participantSize;
+    public float participantMass = 1;
     private Renderer rendererReference;
     private GameObject lastHitBy = null;
     private Rigidbody participantRb;
@@ -17,6 +19,8 @@ public class Participant : MonoBehaviour
         participantRb = GetComponent<Rigidbody>();
         rendererReference = GetComponent<Renderer>();
         totalKills = 0;
+        transform.localScale = participantSize;
+        participantRb.mass = participantMass;
     }
 
     // Update is called once per frame
@@ -62,10 +66,10 @@ public class Participant : MonoBehaviour
 
     public void IncreaseScaleMass()
     {
-        transform.localScale += new Vector3(0.5f, 0.5f, 0.5f);
-        participantRb.mass += 0.5f;
-
-
+        participantSize += new Vector3(0.5f, 0.5f, 0.5f);
+        transform.localScale = participantSize;
+        participantMass += 0.5f;
+        participantRb.mass = participantMass;
     }
 
     public void UpdateTexture()

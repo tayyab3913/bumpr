@@ -23,7 +23,11 @@ public class Enemy : MonoBehaviour
         if(gameManagerReference.participants.ToArray().Length > 1)
         {
             MoveTowardsParticipant(GetClosestParticipant());
-        } 
+        } else
+        {
+            enemyRb.velocity = new Vector3(0, 0, 0);
+            enemyRb.angularVelocity = new Vector3(0, 0, 0);
+        }
     }
 
     public void InitializeEnemy(GameManager gameManager)

@@ -22,12 +22,20 @@ public class GameManager : MonoBehaviour
             GameObject tempParticipantReference;
             tempParticipantReference = Instantiate(enemyParticipantPrefab, GeneratreSpawnPosition(), enemyParticipantPrefab.transform.rotation);
             tempParticipantReference.GetComponent<Enemy>().InitializeEnemy(this);
-            tempParticipantReference.GetComponent<Participant>().participantName = "Participant" + (i+1);
+            Participant tempPartComponent = tempParticipantReference.GetComponent<Participant>();
+            tempPartComponent.participantName = "Participant" + (i+1);
+            float tempRange = Random.Range(1f, 2f);
+            tempPartComponent.participantSize = new Vector3(tempRange, tempRange, tempRange);
+            tempPartComponent.participantMass = tempRange;
             participants.Add(tempParticipantReference);
         }
         playerReference = Instantiate(playerParticipantPrefab, GeneratreSpawnPosition(), playerParticipantPrefab.transform.rotation);
         playerReference.GetComponent<PlayerController>().InitializePlayer(this);
-        playerReference.GetComponent<Participant>().participantName = "Main Player";
+        Participant tempPartPlayer = playerReference.GetComponent<Participant>();
+        tempPartPlayer.participantName = "Main Player";
+        tempPartPlayer.participantMass = 1f;
+        tempPartPlayer.participantSize = new Vector3(1.5f, 1.5f, 1.5f);
+
         participants.Add(playerReference);
     }
 
