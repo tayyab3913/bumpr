@@ -229,10 +229,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1802b481d29322147b799749a8775c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  participantCount: 8
+  participantCount: 3
   enemyParticipantPrefab: {fileID: 2611286356176288824, guid: ea93edfef11ddde4585553517bbfb959, type: 3}
   playerParticipantPrefab: {fileID: 4894237814197649930, guid: cffb70a00efd98346a6e1c7b7d81f536, type: 3}
   participants: []
+  leaderName: 
+  leaderKills: 0
 --- !u!4 &1203372326
 Transform:
   m_ObjectHideFlags: 0

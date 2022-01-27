@@ -5,13 +5,18 @@ using UnityEngine;
 public class Participant : MonoBehaviour
 {
     public Texture[] textures;
+    public string participantName;
     public float attackForce = 10;
-    private Renderer renderer;
+    public int totalKills;
+    private Renderer rendererReference;
     private GameObject lastHitBy = null;
+    private Rigidbody participantRb;
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+        participantRb = GetComponent<Rigidbody>();
+        rendererReference = GetComponent<Renderer>();
+        totalKills = 0;
     }
 
     // Update is called once per frame
@@ -58,12 +63,20 @@ public class Participant : MonoBehaviour
     public void IncreaseScaleMass()
     {
         transform.localScale += new Vector3(0.5f, 0.5f, 0.5f);
+        participantRb.mass += 0.5f;
+
+
     }
 
     public void UpdateTexture()
     {
         int temp = Random.Range(0, textures.Length);
-        renderer.material.SetTexture("_MainTex", textures[temp]);
+        rendererReference.material.SetTexture("_MainTex", textures[temp]);
+    }
+
+    public void IncreaseKillCount()
+    {
+        totalKills++;
     }
 
     public void IncreaseStrength()
@@ -71,6 +84,7 @@ public class Participant : MonoBehaviour
         IncrementAttackForce();
         IncreaseScaleMass();
         UpdateTexture();
+        IncreaseKillCount();
     }
 
     void RemovePlayerFromGame()

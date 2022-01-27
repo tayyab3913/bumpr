@@ -10,19 +10,31 @@ public class GameManager : MonoBehaviour
     public List<GameObject> participants;
     private GameObject playerReference;
     private float spawnRange = 11;
+    // For methods only
+    public string leaderName;
+    public int leaderKills;
     // Start is called before the first frame update
     void Start()
     {
+        leaderKills = 0;
         for (int i = 0; i < participantCount; i++)
         {
             GameObject tempParticipantReference;
             tempParticipantReference = Instantiate(enemyParticipantPrefab, GeneratreSpawnPosition(), enemyParticipantPrefab.transform.rotation);
             tempParticipantReference.GetComponent<Enemy>().InitializeEnemy(this);
+            tempParticipantReference.GetComponent<Participant>().participantName = "Participant" + (i+1);
             participants.Add(tempParticipantReference);
         }
         playerReference = Instantiate(playerParticipantPrefab, GeneratreSpawnPosition(), playerParticipantPrefab.transform.rotation);
         playerReference.GetComponent<PlayerController>().InitializePlayer(this);
+        playerReference.GetComponent<Participant>().participantName = "Main Player";
         participants.Add(playerReference);
+    }
+
+    void Update()
+    {
+        UpdateLeaderBoard();
+        DisplayLeaderBoard();
     }
 
     Vector3 GeneratreSpawnPosition()
@@ -69,5 +81,26 @@ public class GameManager : MonoBehaviour
         {
             participants.Remove(tempParticipant);
         }  
+    }
+
+    public void UpdateLeaderBoard()
+    {
+        foreach (GameObject participatedMember in participants)
+        {
+            Participant tempParticipantReference = participatedMember.GetComponent<Participant>();
+            if (tempParticipantReference.totalKills >= leaderKills)
+            {
+                leaderKills = tempParticipantReference.totalKills;
+                leaderName = tempParticipantReference.participantName;
+            }
+        }
+    }
+
+    public void DisplayLeaderBoard()
+    {
+        if (leaderKills > 0)
+        {
+            Debug.Log("Most kills by " + leaderName + ": " + leaderKills);
+        }
     }
 }

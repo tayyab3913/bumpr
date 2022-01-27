@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
     void MoveTowardsParticipant(GameObject target)
     {
         Vector3 temp = target.transform.position - transform.position;
-        Debug.Log(temp.x + ", " + temp.y + ", " + temp.z);
+        //Debug.Log(temp.x + ", " + temp.y + ", " + temp.z);
         enemyRb.AddForce((target.transform.position - transform.position).normalized * movementSpeed);
     }
 
